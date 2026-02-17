@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=OSC 8 Test Setup
+Exec=/opt/test-scripts/desktop-setup.sh
+X-KDE-autostart-phase=2
+OnlyShowIn=KDE;
