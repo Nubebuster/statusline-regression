@@ -10,7 +10,9 @@ Claude Code's statusline supports a `command` type that runs a shell script and 
 ESC ] 8 ; ; toclipboard://test-uuid ESC \ uuid ESC ] 8 ; ; ESC \
 ```
 
-This worked in **v2.0.76** but is broken in later versions. The link is no longer rendered or clickable in Konsole (a terminal that fully supports OSC 8). It still works in VS Code's integrated terminal across all versions, suggesting a regression in how Claude Code emits the escape sequence to real terminal emulators.
+This is a follow-up to [#21586](https://github.com/anthropics/claude-code/issues/21586), which was fixed in or before v2.1.42 for VS Code IDE terminals. The fix does not extend to standalone terminal emulators — the same statusline script that produces a clickable link in VS Code produces plain text in Konsole. Konsole has had buggy OSC behaviour in older versions, but this reproduction uses **Konsole 24.12.3** (KDE Plasma 6 / Ubuntu 25.04), which has full OSC 8 support.
+
+Tracked in [#26356](https://github.com/anthropics/claude-code/issues/26356).
 
 ## Requirements
 
@@ -64,8 +66,8 @@ Check the statusline at the bottom:
 
 | Version | Expected behavior |
 |---------|-------------------|
-| **2.0.76** | "uuid" is underlined and clickable — Ctrl+click copies `test-uuid` to clipboard |
-| **latest** | "uuid" is **not** clickable — the OSC 8 hyperlink is broken |
+| **2.1.2** | "uuid" is underlined and clickable in Konsole — Ctrl+click copies `test-uuid` to clipboard |
+| **2.1.3+** | "uuid" is **not** clickable in Konsole — the OSC 8 hyperlink is broken |
 
 ### 6. Verify clipboard (when working)
 
